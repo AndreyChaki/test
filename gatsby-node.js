@@ -1,7 +1,45 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require(`path`)
 
-// You can delete this file if you're not using it
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const courseItem = path.resolve(`./src/templates/course-item.js`)
+  const result = await graphql(
+    `
+      {
+        allContentfulCourse {
+          edges {
+            node {
+              slug
+              title
+              author
+              image {
+                fluid (maxWidth:300, toFormat: WEBP) {
+                  src
+                }
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
+  if (result.errors) {
+    throw result.errors
+  }
+
+  // Create course pages.
+  const courses = result.data.allContentfulCourse.edges
+
+  courses.forEach((course) => {
+
+    createPage({
+      path: course.node.slug,
+      component: courseItem,
+      context: {
+        slug: course.node.slug,
+      },
+    })
+  })
+}

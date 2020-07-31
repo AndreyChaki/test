@@ -1,22 +1,64 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+const Index = ({ data }) => {
+  const siteTitle = data.site.siteMetadata.title
+  const courses = data.allContentfulCourse.edges
 
-export default IndexPage
+  return (
+    <Layout title={siteTitle}>
+      <SEO title="All course" />
+
+      <div className='course'>
+        {courses.map(({ node }) => {
+          const title = node.title || node.slug
+          return (
+            <article className='courseItem' key={node.slug}>
+              <div>
+                <Link to={node.slug}>
+                  {title}
+                </Link>
+              </div>
+              <div>
+                {node.author}
+              </div>
+              <div>
+                <img src={node.image.fluid.src} alt=""/>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+
+    </Layout>
+  )
+}
+
+export default Index
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allContentfulCourse {
+      edges {
+        node {
+          slug
+          title
+          author
+          image {
+            fluid (maxWidth:300, toFormat: WEBP) {
+              src
+            }
+          }
+        }
+      }
+    }
+  }
+`
