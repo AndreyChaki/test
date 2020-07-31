@@ -11,13 +11,6 @@ exports.createPages = async ({ graphql, actions }) => {
           edges {
             node {
               slug
-              title
-              author
-              image {
-                fluid (maxWidth:300, toFormat: WEBP) {
-                  src
-                }
-              }
             }
           }
         }

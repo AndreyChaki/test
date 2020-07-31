@@ -3,10 +3,12 @@ import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Img from "gatsby-image"
 
 const Index = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title
   const courses = data.allContentfulCourse.edges
+
 
   return (
     <Layout title={siteTitle}>
@@ -14,6 +16,7 @@ const Index = ({ data }) => {
 
       <div className='course'>
         {courses.map(({ node }) => {
+          console.log(node)
           const title = node.title || node.slug
           return (
             <article className='courseItem' key={node.slug}>
@@ -26,7 +29,7 @@ const Index = ({ data }) => {
                 {node.author}
               </div>
               <div>
-                <img src={node.image.fluid.src} alt=""/>
+                <Img fluid={node.image.fluid} />
               </div>
             </article>
           )
@@ -53,8 +56,8 @@ export const pageQuery = graphql`
           title
           author
           image {
-            fluid (maxWidth:300, toFormat: WEBP) {
-              src
+            fluid (toFormat: WEBP) {
+              ...GatsbyContentfulFluid
             }
           }
         }

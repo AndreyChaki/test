@@ -623,14 +623,16 @@ pre tt:after {
 
 
 
-.course
+.course,
+.lessonsList
 {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -20px;
 }
 
-.courseItem
+.courseItem,
+.lessonItem
 {
   flex-basis: 33.3333%;
   box-sizing: border-box;
@@ -640,7 +642,8 @@ pre tt:after {
   z-index: 1;
 }
 
-.courseItem a:after
+.courseItem a:after,
+.lessonItem a:after
 {
   position: absolute;
   content: '';

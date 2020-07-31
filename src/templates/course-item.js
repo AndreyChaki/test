@@ -1,28 +1,46 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Img from "gatsby-image"
 
 const CourseItemTemplate = ({ data }) => {
-  const course = data.contentfulCourse
+  const courseTitle = data.contentfulCourse.title
+  const lessons = data.contentfulCourse.child
   const siteTitle = data.site.siteMetadata.title
+
 
   return (
     <Layout title={siteTitle}>
-      <SEO
-        title={course.title}
-      />
+      <SEO title={courseTitle} />
 
       <h1>
-        {course.title}
+        {courseTitle}
       </h1>
-      <div>
-        {course.author}
+
+      <Link to='/'>
+        Назад
+      </Link>
+
+      <div className='lessonsList'>
+        { lessons == null ? 'Нет уроков' :
+          lessons.map(( node ) => {
+          return (
+            <article className='lessonItem' key={node.slug}>
+              <Img fluid={node.image.fluid} />
+              <Link to={node.slug}>
+                {node.title}
+              </Link>
+              <div>
+                {node.description}
+              </div>
+            </article>
+          )
+        })}
       </div>
-      <div>
-        <img src={course.image.fluid.src} alt=""/>
-      </div>
+
+
 
     </Layout>
   )
@@ -39,10 +57,14 @@ export const pageQuery = graphql`
     }
     contentfulCourse (slug: { eq: $slug }) {
       title
-      author
-      image {
-        fluid (maxWidth:300, toFormat: WEBP) {
-          src
+      child {
+        title
+        slug
+        description
+        image {
+          fluid (toFormat: WEBP) {
+            ...GatsbyContentfulFluid
+          }
         }
       }
     }
