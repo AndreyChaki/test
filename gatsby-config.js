@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === "development") {
+  require("dotenv").config();
+}
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -16,9 +20,8 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `5ck324irnhsg`,
-        accessToken: '1AQUeOVQYppbQwylUj7tDf6TmFQO9kE9RQvc-WZIqo4',
-        downloadLocal: true,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
     `gatsby-transformer-sharp`,

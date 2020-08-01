@@ -3,7 +3,8 @@ const path = require(`path`)
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const courseItem = path.resolve(`./src/templates/course-item.js`)
+  const coursePage = path.resolve(`./src/templates/CoursePage.js`)
+  const lessonPage = path.resolve(`./src/templates/CoursePage.js`)
   const result = await graphql(
     `
       {
@@ -29,7 +30,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: course.node.slug,
-      component: courseItem,
+      component: coursePage,
       context: {
         slug: course.node.slug,
       },

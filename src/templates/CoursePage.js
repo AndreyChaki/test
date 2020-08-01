@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
 
-const CourseItemTemplate = ({ data }) => {
+const CoursePageTemplate = ({ data }) => {
   const courseTitle = data.contentfulCourse.title
   const lessons = data.contentfulCourse.child
   const siteTitle = data.site.siteMetadata.title
@@ -46,7 +46,7 @@ const CourseItemTemplate = ({ data }) => {
   )
 }
 
-export default CourseItemTemplate
+export default CoursePageTemplate
 
 export const pageQuery = graphql`
   query CourseItemBySlug($slug: String!) {
