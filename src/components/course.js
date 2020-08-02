@@ -11,7 +11,8 @@ const Course = ({
       fluid: {
         ...GatsbyContentfulFluid
       }
-    }
+    },
+    child
   }
   }) => (
   <article className='courseItem' key={slug}>
@@ -21,7 +22,10 @@ const Course = ({
       </Link>
     </div>
     <div>
-      {author}
+      Количество уроков: {child.length}
+    </div>
+    <div>
+      Автор: {author}
     </div>
     <div>
       <Img fluid={GatsbyContentfulFluid} />

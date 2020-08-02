@@ -15,13 +15,13 @@ const CoursePageTemplate = ({ data }) => {
     <Layout title={siteTitle}>
       <SEO title={courseTitle} />
 
-      <h1>
-        {courseTitle}
-      </h1>
-
       <Link to='/'>
         Назад
       </Link>
+
+      <h1>
+        {courseTitle}
+      </h1>
 
       <div className='lessonsList'>
         { lessons == null ? 'Нет уроков' :

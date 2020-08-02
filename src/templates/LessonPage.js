@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const LessonPageTemplate = ({ data }) => {
-  const lessonTitle = data.contentfulCourse.child.title
-  const content = data.contentfulCourse.child.content
+  const lessonTitle = data.contentfulLesson.title
   const siteTitle = data.site.siteMetadata.title
 
 
@@ -14,16 +14,17 @@ const LessonPageTemplate = ({ data }) => {
     <Layout title={siteTitle}>
       <SEO title={lessonTitle} />
 
+      <Link to='./../'>
+        Назад
+      </Link>
+
       <h1>
         {lessonTitle}
       </h1>
 
-      <Link to={data.contentfulCourse.slug}>
-        Назад
-      </Link>
 
       <article className='article'>
-        {content}
+        {documentToReactComponents(data.contentfulLesson.content.json)}
       </article>
 
     </Layout>
@@ -39,16 +40,11 @@ export const pageQuery = graphql`
         title
       }
     }
-    contentfulCourse (slug: { eq: $slug }) {
+    contentfulLesson (slug: { eq: $slug }) {
+      title
       slug
-      child {
-        title
-        slug
-        content {
-          childContentfulRichText {
-            html
-          }
-        }
+      content{
+        json
       }
     }
   }

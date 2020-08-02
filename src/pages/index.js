@@ -20,6 +20,9 @@ const Index = () => (
                     fluid (toFormat: WEBP) {
                       ...GatsbyContentfulFluid
                     }
+                  } 
+                  child {
+                    id
                   }
                 }
               }
@@ -27,10 +30,10 @@ const Index = () => (
           }
         `}
           render={({
-                     allContentfulCourse: {
-                       edges
-                     }
-                   }) => (
+            allContentfulCourse: {
+             edges
+            }
+            }) => (
             edges.map(({ node }) => (
               <Course key={node.slug} content={node} />
             ))
