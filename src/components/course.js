@@ -3,16 +3,16 @@ import React from "react"
 import Img from "gatsby-image"
 
 const Course = ({
-  content: {
-    title,
-    slug,
-    author,
-    image: {
-      fluid: {
-        ...GatsbyContentfulFluid
+    content: {
+      title,
+      slug,
+      author,
+      image: {
+        fluid: {
+          ...GatsbyContentfulFluid
+        }
       }
-    },
-  }
+    }
   }) => (
   <article className='courseItem' key={slug}>
     <div>
@@ -21,7 +21,7 @@ const Course = ({
       </Link>
     </div>
     <div>
-      Автор: {author}
+      {author}
     </div>
     <div>
       <Img fluid={GatsbyContentfulFluid} />
