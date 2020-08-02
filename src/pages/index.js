@@ -20,9 +20,6 @@ const Index = () => (
                     fluid (toFormat: WEBP) {
                       ...GatsbyContentfulFluid
                     }
-                  } 
-                  child {
-                    id
                   }
                 }
               }

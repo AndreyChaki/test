@@ -12,7 +12,6 @@ const Course = ({
         ...GatsbyContentfulFluid
       }
     },
-    child
   }
   }) => (
   <article className='courseItem' key={slug}>
@@ -20,9 +19,6 @@ const Course = ({
       <Link to={slug}>
         {title}
       </Link>
-    </div>
-    <div>
-      Количество уроков: {child.length}
     </div>
     <div>
       Автор: {author}
