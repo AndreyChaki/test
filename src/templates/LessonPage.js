@@ -3,7 +3,6 @@ import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Img from "gatsby-image"
 
 const LessonPageTemplate = ({ data }) => {
   const lessonTitle = data.contentfulCourse.child.title
@@ -34,7 +33,7 @@ const LessonPageTemplate = ({ data }) => {
 export default LessonPageTemplate
 
 export const pageQuery = graphql`
-  query CourseItemBySlug($slug: String!) {
+  query LessonItemBySlug($slug: String!) {
     site {
       siteMetadata {
         title

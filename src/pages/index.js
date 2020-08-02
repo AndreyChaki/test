@@ -1,67 +1,44 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql, StaticQuery } from "gatsby"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
-import Img from "gatsby-image"
+import Course from "../components/Course"
 
-const Index = ({ data }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const courses = data.allContentfulCourse.edges
-
-
-  return (
-    <Layout title={siteTitle}>
-      <SEO title="All course" />
-
-      <div className='course'>
-        {courses.map(({ node }) => {
-          console.log(node)
-          const title = node.title || node.slug
-          return (
-            <article className='courseItem' key={node.slug}>
-              <div>
-                <Link to={node.slug}>
-                  {title}
-                </Link>
-              </div>
-              <div>
-                {node.author}
-              </div>
-              <div>
-                <Img fluid={node.image.fluid} />
-              </div>
-            </article>
-          )
-        })}
-      </div>
-
-    </Layout>
-  )
-}
-
-export default Index
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allContentfulCourse {
-      edges {
-        node {
-          slug
-          title
-          author
-          image {
-            fluid (toFormat: WEBP) {
-              ...GatsbyContentfulFluid
+const Index = () => (
+    <Layout title="siteTitle">
+      <div className="course">
+        <StaticQuery
+          query={graphql`
+          {
+            allContentfulCourse (sort: {fields: slug}) {
+              edges {
+                node {
+                  slug
+                  title
+                  author
+                  image {
+                    fluid (toFormat: WEBP) {
+                      ...GatsbyContentfulFluid
+                    }
+                  }
+                }
+              }
             }
           }
-        }
-      }
-    }
-  }
-`
+        `}
+          render={({
+                     allContentfulCourse: {
+                       edges
+                     }
+                   }) => (
+            edges.map(({ node }) => (
+              <Course key={node.slug} content={node} />
+            ))
+          )}
+        />
+      </div>
+    </Layout>
+
+)
+
+export default Index

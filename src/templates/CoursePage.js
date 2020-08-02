@@ -39,9 +39,6 @@ const CoursePageTemplate = ({ data }) => {
           )
         })}
       </div>
-
-
-
     </Layout>
   )
 }
